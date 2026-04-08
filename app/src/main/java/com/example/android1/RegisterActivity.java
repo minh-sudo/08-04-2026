@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +18,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText edtFullName, edtPhone, edtEmail, edtPassword;
     private Button btnRegister;
+    private TextView tvBackToLogin;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
@@ -35,8 +37,13 @@ public class RegisterActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edtEmailReg);
         edtPassword = findViewById(R.id.edtPasswordReg);
         btnRegister = findViewById(R.id.btnRegister);
+        tvBackToLogin = findViewById(R.id.tvBackToLogin);
 
         btnRegister.setOnClickListener(v -> registerUser());
+
+        tvBackToLogin.setOnClickListener(v -> {
+            finish(); // Quay lại màn hình LoginActivity
+        });
     }
 
     private void registerUser() {

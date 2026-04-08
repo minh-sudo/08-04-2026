@@ -22,6 +22,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private String movieId; // ID phim nhận từ màn hình trước
     private RecyclerView recyclerViewShowtimes;
+    private ShowtimeAdapter showtimeAdapter;
+    private List<Showtime> showtimesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvTitle = findViewById(R.id.tvDetailTitle);
         recyclerViewShowtimes = findViewById(R.id.recyclerViewShowtimes);
         recyclerViewShowtimes.setLayoutManager(new LinearLayoutManager(this));
+
+        showtimesList = new ArrayList<>();
+        showtimeAdapter = new ShowtimeAdapter(this, showtimesList);
+        recyclerViewShowtimes.setAdapter(showtimeAdapter);
 
         db = FirebaseFirestore.getInstance();
 
@@ -56,7 +62,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null) {
-                        List<Showtime> showtimesList = new ArrayList<>();
+                        showtimesList.clear();
                         for (DocumentSnapshot doc : task.getResult()) {
                             Showtime showtime = doc.toObject(Showtime.class);
                             if (showtime != null) {
@@ -65,11 +71,10 @@ public class MovieDetailActivity extends AppCompatActivity {
                             }
                         }
                         
-                        // In tạm ra Logcat để kiểm tra xem có tải được dữ liệu không
-                        Log.d("SHOWTIME_DATA", "Tìm thấy " + showtimesList.size() + " suất chiếu");
+                        // Cập nhật adapter sau khi tải xong dữ liệu
+                        showtimeAdapter.notifyDataSetChanged();
                         
-                        // TẠI ĐÂY: Bạn sẽ cần tạo một ShowtimeAdapter tương tự như MovieAdapter 
-                        // để gán showtimesList vào cái recyclerViewShowtimes.
+                        Log.d("SHOWTIME_DATA", "Tìm thấy " + showtimesList.size() + " suất chiếu");
                         
                     } else {
                         Toast.makeText(this, "Không tìm thấy suất chiếu", Toast.LENGTH_SHORT).show();

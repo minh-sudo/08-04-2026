@@ -51,4 +51,13 @@
         android:layout_height="wrap_content"
         android:text="Đăng Ký" />
 
+    <TextView
+        android:id="@+id/tvBackToLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đã có tài khoản? Đăng nhập ngay"
+        android:textColor="@color/black"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"/>
+
 </LinearLayout>
