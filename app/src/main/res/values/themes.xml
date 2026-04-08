@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kế thừa từ Theme.AppCompat để tương thích với AppCompatActivity -->
+    <style name="Theme.Android1" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+</resources>
